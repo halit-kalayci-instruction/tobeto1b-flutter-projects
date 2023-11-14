@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesPage extends StatefulWidget {
@@ -12,43 +13,7 @@ class ExpensesPage extends StatefulWidget {
 
 class _ExpensesPageState extends State<ExpensesPage> {
   List<Expense> expenses = [
-    Expense(name: "Yemek", price: 500, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
-    Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
+    Expense(name: "Yemek", price: 500.529, date: DateTime.now()),
     Expense(name: "Udemy Kursu", price: 200, date: DateTime.now()),
   ];
 
@@ -64,7 +29,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
           child: ListView.builder(
               itemCount: expenses.length,
               itemBuilder: (context, index) {
-                return Text(expenses[index].name);
+                return ExpenseItem(expenses[index]);
               }),
         ),
         const SizedBox(
