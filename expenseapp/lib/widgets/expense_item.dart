@@ -2,6 +2,7 @@ import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//14:10
 class ExpenseItem extends StatelessWidget {
   // unnamed argument => default olarak required'dır
   // named argument => belirtmek gerekir
