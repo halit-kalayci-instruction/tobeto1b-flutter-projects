@@ -27,6 +27,8 @@ class _NewExpenseState extends State<NewExpense> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(labelText: "Harcama Miktarı"),
           ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.calendar_month)),
+          Text("Tarih Seçiniz"),
           ElevatedButton(
               onPressed: () {
                 print(
