@@ -1,4 +1,6 @@
+import 'package:expenseapp/models/expense.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewExpense extends StatefulWidget {
   const NewExpense({Key? key}) : super(key: key);
@@ -10,6 +12,8 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   var _expenseNameController = TextEditingController();
   var _expensePriceController = TextEditingController();
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.work;
 
   void _openDatePicker() async {
     DateTime today = DateTime.now(); // 16.11.2023
@@ -25,12 +29,16 @@ class _NewExpenseState extends State<NewExpense> {
     //   print(value);
     // });
     // async function => await etmek
+    // nullable
+    // 14:20
     DateTime? selectedDate = await showDatePicker(
         context: context,
-        initialDate: today,
+        initialDate: _selectedDate == null ? today : _selectedDate!,
         firstDate: oneYearAgo,
         lastDate: today);
-    print(selectedDate);
+    setState(() {
+      _selectedDate = selectedDate;
+    });
     print("Merhaba");
     // sync => bir satır çalışmasını bitirmeden alt satıra geçemez.
     // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
@@ -54,20 +62,48 @@ class _NewExpenseState extends State<NewExpense> {
                 child: TextField(
                   controller: _expensePriceController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: "Harcama Miktarı"),
+                  decoration: const InputDecoration(
+                      labelText: "Harcama Miktarı", prefixText: "₺"),
                 ),
               ),
               IconButton(
                   onPressed: () => _openDatePicker(),
                   icon: const Icon(Icons.calendar_month)),
-              const Text("Tarih Seçiniz"),
+              // ternary operator
+              Text(_selectedDate == null
+                  ? "Tarih Seçiniz"
+                  : DateFormat.yMd().format(_selectedDate!)),
+            ],
+            // String?  a
+            // String => a!
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
+            children: [
+              DropdownButton(
+                  value: _selectedCategory,
+                  items: Category.values.map((category) {
+                    return DropdownMenuItem(
+                        value: category, child: Text(category.name));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value != null) _selectedCategory = value;
+                    });
+                  })
             ],
           ),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: () {}, child: const Text("Kapat")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Kapat")),
               const SizedBox(
                 width: 12,
               ),
@@ -78,7 +114,7 @@ class _NewExpenseState extends State<NewExpense> {
                   },
                   child: Text("Ekle")),
             ],
-          )
+          ),
         ]),
       ),
     );
