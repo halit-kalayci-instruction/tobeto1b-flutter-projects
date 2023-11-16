@@ -44,6 +44,7 @@ class _NewExpenseState extends State<NewExpense> {
     // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
   }
 
+  // 3:20 discorddayız
   @override
   Widget build(BuildContext context) {
     return Container(
