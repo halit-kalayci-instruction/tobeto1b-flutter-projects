@@ -10,6 +10,32 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   var _expenseNameController = TextEditingController();
   var _expensePriceController = TextEditingController();
+
+  void _openDatePicker() async {
+    DateTime today = DateTime.now(); // 16.11.2023
+    // 2022, 11, 16
+    DateTime oneYearAgo = DateTime(today.year - 1, today.month, today.day);
+    // showDatePicker(
+    //         context: context,
+    //         initialDate: today,
+    //         firstDate: oneYearAgo,
+    //         lastDate: today)
+    // .then((value) {
+    //   async işlemden cevap ne zaman gelirse bu bloğu çalıştır..
+    //   print(value);
+    // });
+    // async function => await etmek
+    DateTime? selectedDate = await showDatePicker(
+        context: context,
+        initialDate: today,
+        firstDate: oneYearAgo,
+        lastDate: today);
+    print(selectedDate);
+    print("Merhaba");
+    // sync => bir satır çalışmasını bitirmeden alt satıra geçemez.
+    // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,21 +48,41 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 50,
             decoration: InputDecoration(labelText: "Harcama Adı"),
           ),
-          TextField(
-            controller: _expensePriceController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: "Harcama Miktarı"),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _expensePriceController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: "Harcama Miktarı"),
+                ),
+              ),
+              IconButton(
+                  onPressed: () => _openDatePicker(),
+                  icon: const Icon(Icons.calendar_month)),
+              const Text("Tarih Seçiniz"),
+            ],
           ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.calendar_month)),
-          Text("Tarih Seçiniz"),
-          ElevatedButton(
-              onPressed: () {
-                print(
-                    "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
-              },
-              child: Text("Ekle"))
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {}, child: const Text("Kapat")),
+              const SizedBox(
+                width: 12,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    print(
+                        "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
+                  },
+                  child: Text("Ekle")),
+            ],
+          )
         ]),
       ),
     );
   }
 }
+// 15:00
+// pairlerdeyiz
