@@ -5,28 +5,14 @@ import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesPage extends StatefulWidget {
-  const ExpensesPage({Key? key}) : super(key: key);
+  const ExpensesPage(this.expenses, {Key? key}) : super(key: key);
+  final List<Expense> expenses;
 
   @override
   _ExpensesPageState createState() => _ExpensesPageState();
 }
 
 class _ExpensesPageState extends State<ExpensesPage> {
-  // callback fonksiyon
-  // setState'i unutmayalım..
-  List<Expense> expenses = [
-    Expense(
-        name: "Yemek",
-        price: 500.529,
-        date: DateTime.now(),
-        category: Category.food),
-    Expense(
-        name: "Udemy Kursu",
-        price: 200,
-        date: DateTime.now(),
-        category: Category.work),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -37,9 +23,9 @@ class _ExpensesPageState extends State<ExpensesPage> {
         ),
         Expanded(
           child: ListView.builder(
-              itemCount: expenses.length,
+              itemCount: widget.expenses.length,
               itemBuilder: (context, index) {
-                return ExpenseItem(expenses[index]);
+                return ExpenseItem(widget.expenses[index]);
               }),
         ),
         const SizedBox(
@@ -50,3 +36,6 @@ class _ExpensesPageState extends State<ExpensesPage> {
     );
   }
 }
+
+// listeden veri silme ve alt başlıkları
+// theming ve alt başlıkları

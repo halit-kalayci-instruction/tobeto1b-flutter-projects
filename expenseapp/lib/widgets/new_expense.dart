@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
-
+  const NewExpense(this.onAdd, {Key? key}) : super(key: key);
+  final void Function(Expense expense) onAdd;
   @override
   _NewExpenseState createState() => _NewExpenseState();
 }
@@ -44,7 +44,6 @@ class _NewExpenseState extends State<NewExpense> {
     // async => async olan satır sadece tetiklenir kod aşağıya doğru çalışmaya devam eder
   }
 
-  // 3:20 discorddayız
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,8 +109,18 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    print(
-                        "Kaydedilen değer: ${_expenseNameController.text} ${_expensePriceController.text}");
+                    double? price =
+                        double.tryParse(_expensePriceController.text);
+
+                    // validation
+
+                    Expense expense = Expense(
+                        name: _expenseNameController.text,
+                        price: price!,
+                        date: _selectedDate!,
+                        category: _selectedCategory);
+                    widget.onAdd(expense);
+                    Navigator.pop(context);
                   },
                   child: Text("Ekle")),
             ],
@@ -121,5 +130,3 @@ class _NewExpenseState extends State<NewExpense> {
     );
   }
 }
-// 15:00
-// pairlerdeyiz
