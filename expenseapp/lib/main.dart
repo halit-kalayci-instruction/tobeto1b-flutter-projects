@@ -1,8 +1,7 @@
 import 'package:expenseapp/pages/main_page.dart';
 import 'package:flutter/material.dart';
 
-ColorScheme colorScheme1 =
-    ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent);
+ColorScheme colorScheme1 = ColorScheme.fromSeed(seedColor: Colors.black54);
 
 void main() {
   runApp(

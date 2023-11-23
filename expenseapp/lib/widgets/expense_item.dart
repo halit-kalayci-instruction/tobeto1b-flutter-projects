@@ -15,15 +15,17 @@ class ExpenseItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
-          Text(expense.name),
+          Text(expense.name, style: TextStyle(color: Colors.white)),
           Row(
             children: [
-              Text(
-                  "₺ ${expense.price.toStringAsFixed(2)}"), // string interpolation
+              Text("₺ ${expense.price.toStringAsFixed(2)}",
+                  style:
+                      TextStyle(color: Colors.white)), // string interpolation
               const Spacer(),
-              Icon(categoryIcons[expense.category]),
+              Icon(categoryIcons[expense.category], color: Colors.white),
               const SizedBox(width: 6),
-              Text(DateFormat.yMd().format(expense.date)),
+              Text(DateFormat.yMd().format(expense.date),
+                  style: TextStyle(color: Colors.white)),
             ],
           )
         ]),

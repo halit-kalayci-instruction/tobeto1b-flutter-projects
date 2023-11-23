@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expenseapp/models/expense.dart';
+import 'package:expenseapp/widgets/chart.dart';
 import 'package:expenseapp/widgets/expense_item.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +22,7 @@ class _ExpensesPageState extends State<ExpensesPage> {
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SizedBox(
           height: 150,
-          child: Text(
-            "Grafik Bölümü",
-            style: Theme.of(context).textTheme.titleLarge,
-          ), // titleLarge stilini alması
+          child: Chart(allExpenses: widget.expenses),
         ),
         Expanded(
           child: ListView.builder(

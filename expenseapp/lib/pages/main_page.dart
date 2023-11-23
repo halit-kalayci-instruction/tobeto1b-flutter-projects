@@ -53,7 +53,9 @@ class _MainPageState extends State<MainPage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: ExpensesPage(expenses, removeExpense),
+      body: expenses.length > 0
+          ? ExpensesPage(expenses, removeExpense)
+          : Text("Henüz hiç bir harcama girmediniz.."),
     );
   }
 }
