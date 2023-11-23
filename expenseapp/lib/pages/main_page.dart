@@ -31,9 +31,25 @@ class _MainPageState extends State<MainPage> {
   }
 
   removeExpense(Expense expense) {
+    final deletingIndex = expenses.indexOf(expense);
     setState(() {
       expenses.remove(expense);
     });
+    ScaffoldMessenger.of(context)
+        .clearSnackBars(); // o an ekrandaki tüm snackbarlari temizler..
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 3),
+      content: const Text("Harcama başarıyla silindi"),
+      action: SnackBarAction(
+          label: 'Geri Al',
+          onPressed: () {
+            setState(() {
+              expenses.insert(deletingIndex,
+                  expense); // insert => belirli bir indexe veri ekler
+              //expenses.add(expense);
+            });
+          }),
+    ));
   }
 
   @override
@@ -59,3 +75,5 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+// 2:30 dersteyiz
