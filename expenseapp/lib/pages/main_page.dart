@@ -76,4 +76,6 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-// 2:30 dersteyiz
+// State Management
+// RiverPod
+
