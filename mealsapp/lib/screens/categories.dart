@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mealsapp/data/dummy_data.dart';
+import 'package:mealsapp/models/category.dart';
+import 'package:mealsapp/screens/meals.dart';
 import 'package:mealsapp/widgets/category_card.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key}) : super(key: key);
+
+  // context objesi => statefull widget => context objesi tüm noktalardan erişilebilir
+  // stateless widget => context objesi yalnızca build fonksiyonundan erişilebilir.
+  void _changeScreen(Category category, BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => Meals(
+              category: category,
+            )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +32,7 @@ class Categories extends StatelessWidget {
           for (final c in categoryList)
             CategoryCard(
               category: c,
+              onCategoryClick: () => _changeScreen(c, context),
             )
         ],
       ),

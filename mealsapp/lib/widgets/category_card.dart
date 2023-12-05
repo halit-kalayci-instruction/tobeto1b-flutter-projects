@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mealsapp/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({Key? key, required this.category}) : super(key: key);
+  const CategoryCard(
+      {Key? key, required this.category, required this.onCategoryClick})
+      : super(key: key);
   final Category category;
+  final void Function() onCategoryClick;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: category.color,
-      onTap: () {},
+      onTap: () {
+        onCategoryClick();
+      },
       child: Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
