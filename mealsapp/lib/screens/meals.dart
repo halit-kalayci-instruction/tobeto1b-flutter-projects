@@ -34,5 +34,3 @@ class Meals extends ConsumerWidget {
     );
   }
 }
-
-// LMS => Learning Management System
