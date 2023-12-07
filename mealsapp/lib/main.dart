@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mealsapp/screens/categories.dart';
 
 final theme = ThemeData(
@@ -8,5 +9,5 @@ final theme = ThemeData(
         brightness: Brightness.dark));
 
 void main() {
-  runApp(MaterialApp(theme: theme, home: Categories()));
+  runApp(ProviderScope(child: MaterialApp(theme: theme, home: Categories())));
 }
