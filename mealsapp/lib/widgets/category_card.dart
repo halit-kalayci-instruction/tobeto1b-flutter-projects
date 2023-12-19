@@ -18,6 +18,7 @@ class CategoryCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
           gradient: LinearGradient(colors: [
             category.color.withOpacity(0.5),
             category.color.withOpacity(0.9)
@@ -28,3 +29,4 @@ class CategoryCard extends StatelessWidget {
     );
   }
 }
+// 3:05 
