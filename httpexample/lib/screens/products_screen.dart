@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:httpexample/models/productResponse.dart';
 import 'package:httpexample/widgets/product_item.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     Uri url = Uri.https("dummyjson.com", "products");
     final response = await http.get(url);
     final dataAsJson = json.decode(response.body);
-
+    // alınan cevabı bir dart nesnesi olarak kullanabilmek
     setState(() {
       productList = dataAsJson["products"];
     });
