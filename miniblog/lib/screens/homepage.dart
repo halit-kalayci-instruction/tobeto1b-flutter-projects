@@ -39,9 +39,13 @@ class _HomepageState extends State<Homepage> {
           title: const Text("Blog Listesi"),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.of(context)
+                onPressed: () async {
+                  bool? result = await Navigator.of(context)
                       .push(MaterialPageRoute(builder: (builder) => AddBlog()));
+
+                  if (result == true) {
+                    fetchBlogs();
+                  }
                 },
                 icon: const Icon(Icons.add))
           ],
