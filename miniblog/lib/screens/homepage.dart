@@ -32,42 +32,39 @@ class _HomepageState extends State<Homepage> {
                 icon: const Icon(Icons.add))
           ],
         ),
-        body: BlocProvider(
-          create: (context) => ArticleBloc(),
-          child: BlocBuilder<ArticleBloc, ArticleState>(
-            builder: (context, state) {
-              if (state is ArticlesInitial) {
-                context.read<ArticleBloc>().add(FetchArticles());
-
-                return const Center(
-                  child: Text("İstek atılıyor.."),
-                );
-              }
-
-              if (state is ArticlesLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
-              if (state is ArticlesError) {
-                return const Center(
-                  child: Text("İstek hatalı.."),
-                );
-              }
-
-              if (state is ArticlesLoaded) {
-                return ListView.builder(
-                    itemCount: state.blogs.length,
-                    itemBuilder: (context, index) =>
-                        BlogItem(blog: state.blogs[index]));
-              }
+        body: BlocBuilder<ArticleBloc, ArticleState>(
+          builder: (context, state) {
+            if (state is ArticlesInitial) {
+              context.read<ArticleBloc>().add(FetchArticles());
 
               return const Center(
-                child: Text("Bilinmedik durum"),
+                child: Text("İstek atılıyor.."),
               );
-            },
-          ),
+            }
+
+            if (state is ArticlesLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (state is ArticlesError) {
+              return const Center(
+                child: Text("İstek hatalı.."),
+              );
+            }
+
+            if (state is ArticlesLoaded) {
+              return ListView.builder(
+                  itemCount: state.blogs.length,
+                  itemBuilder: (context, index) =>
+                      BlogItem(blog: state.blogs[index]));
+            }
+
+            return const Center(
+              child: Text("Bilinmedik durum"),
+            );
+          },
         ));
   }
 }
