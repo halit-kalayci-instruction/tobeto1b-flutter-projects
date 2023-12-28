@@ -10,4 +10,12 @@ class ArticleRepository {
     final List jsonData = json.decode(response.body);
     return jsonData.map((json) => Blog.fromJson(json)).toList();
   }
+
+  Future<Blog> fetchBlogById(String id) async {
+    Uri url =
+        Uri.parse("https://tobetoapi.halitkalayci.com/api/Articles/" + id);
+    final response = await http.get(url);
+    final body = json.decode(response.body);
+    return Blog.fromJson(body);
+  }
 }

@@ -39,6 +39,7 @@ class _HomepageState extends State<Homepage> {
     sharedPrefs.setString("user", jsonAsString);
   }
 
+// 15:00
   void getJson() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     final jsonAsString = sharedPrefs.getString("user");
