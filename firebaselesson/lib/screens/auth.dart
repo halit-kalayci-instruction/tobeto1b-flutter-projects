@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+final firebaseAuthInstance = FirebaseAuth.instance;
 
 class Auth extends StatefulWidget {
   const Auth({Key? key}) : super(key: key);
@@ -9,6 +12,30 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   var _isLogin = true;
+
+  void _submit() async {
+    //_formKey.currentState!.validate();
+    _formKey.currentState!.save();
+
+    if (_isLogin) {
+      // Giriş Yap
+    } else {
+      // Kayıt ol
+
+      try {
+        final userCredentials = await firebaseAuthInstance
+            .createUserWithEmailAndPassword(email: _email, password: _password);
+      } on FirebaseAuthException catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.message ?? "Kayıt Hatalı")));
+      }
+    }
+  }
+
+  final _formKey = GlobalKey<FormState>();
+
+  var _email = '';
+  var _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +48,29 @@ class _AuthState extends State<Auth> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     children: [
                       TextFormField(
                         decoration: const InputDecoration(labelText: "E-posta"),
                         autocorrect: false,
+                        keyboardType: TextInputType.emailAddress,
+                        onSaved: (newValue) {
+                          _email = newValue!;
+                        },
                       ),
                       TextFormField(
                         decoration: const InputDecoration(labelText: "Şifre"),
                         autocorrect: false,
                         obscureText: true,
+                        onSaved: (newValue) {
+                          _password = newValue!;
+                        },
                       ),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _submit();
+                          },
                           child: Text(_isLogin ? "Giriş Yap" : "Kayıt Ol")),
                       TextButton(
                           onPressed: () {
