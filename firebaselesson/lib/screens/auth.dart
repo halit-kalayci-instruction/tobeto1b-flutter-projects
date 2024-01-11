@@ -46,53 +46,56 @@ class _AuthState extends State<Auth> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Card(
-              margin: const EdgeInsets.all(20),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: "E-posta"),
-                        autocorrect: false,
-                        keyboardType: TextInputType.emailAddress,
-                        onSaved: (newValue) {
-                          _email = newValue!;
-                        },
-                      ),
-                      TextFormField(
-                        decoration: const InputDecoration(labelText: "Şifre"),
-                        autocorrect: false,
-                        obscureText: true,
-                        onSaved: (newValue) {
-                          _password = newValue!;
-                        },
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            _submit();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+                margin: const EdgeInsets.all(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration:
+                              const InputDecoration(labelText: "E-posta"),
+                          autocorrect: false,
+                          keyboardType: TextInputType.emailAddress,
+                          onSaved: (newValue) {
+                            _email = newValue!;
                           },
-                          child: Text(_isLogin ? "Giriş Yap" : "Kayıt Ol")),
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _isLogin = !_isLogin;
-                            });
+                        ),
+                        TextFormField(
+                          decoration: const InputDecoration(labelText: "Şifre"),
+                          autocorrect: false,
+                          obscureText: true,
+                          onSaved: (newValue) {
+                            _password = newValue!;
                           },
-                          child: Text(_isLogin
-                              ? "Kayıt Sayfasına Git"
-                              : "Giriş Sayfasına Git"))
-                    ],
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              _submit();
+                            },
+                            child: Text(_isLogin ? "Giriş Yap" : "Kayıt Ol")),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _isLogin = !_isLogin;
+                              });
+                            },
+                            child: Text(_isLogin
+                                ? "Kayıt Sayfasına Git"
+                                : "Giriş Sayfasına Git"))
+                      ],
+                    ),
                   ),
-                ),
-              )),
-        ],
+                )),
+          ],
+        ),
       ),
     );
   }
