@@ -19,9 +19,16 @@ class _AuthState extends State<Auth> {
 
     if (_isLogin) {
       // Giriş Yap
+      try {
+        final userCredentials = await firebaseAuthInstance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+        print(userCredentials);
+      } on FirebaseAuthException catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.message ?? "Giriş hatalı")));
+      }
     } else {
       // Kayıt ol
-
       try {
         final userCredentials = await firebaseAuthInstance
             .createUserWithEmailAndPassword(email: _email, password: _password);
