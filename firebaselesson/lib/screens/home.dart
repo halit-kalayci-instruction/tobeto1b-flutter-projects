@@ -49,6 +49,17 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<String> _getUserImage() async {
+    User? loggedInUser = firebaseAuthInstance.currentUser;
+    final document =
+        firebaseFireStore.collection("users").doc(loggedInUser!.uid);
+    final documentSnapshot = await document.get();
+
+    final imageUrl = await documentSnapshot.get("imageUrl");
+
+    return imageUrl;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,11 +72,25 @@ class _HomeState extends State<Home> {
       ]),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          CircleAvatar(
-            radius: 40,
-            foregroundImage:
-                _selectedImage != null ? FileImage(_selectedImage!) : null,
-          ),
+          if (_selectedImage == null)
+            FutureBuilder(
+                future: _getUserImage(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 40,
+                        foregroundImage: NetworkImage(snapshot.data!));
+                  }
+                  if (snapshot.hasError) {
+                    return const Text("Avatar yüklenirken bir hata oluştu..");
+                  }
+                  return const CircularProgressIndicator();
+                }),
+          if (_selectedImage != null)
+            CircleAvatar(
+                radius: 40, foregroundImage: FileImage(_selectedImage!)),
           TextButton(
               onPressed: () {
                 _pickImage();
