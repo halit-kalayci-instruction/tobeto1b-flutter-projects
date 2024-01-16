@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 final firebaseAuthInstance = FirebaseAuth.instance;
 final firebaseStorageInstance = FirebaseStorage.instance;
+final firebaseFireStore = FirebaseFirestore.instance;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -29,14 +31,21 @@ class _HomeState extends State<Home> {
 
   void _uploadImage() async {
     if (_selectedImage != null) {
-      // uuid, userid
-      final storageRef =
-          firebaseStorageInstance.ref().child("images").child("image1.jpg");
+      User? loggedInUser = firebaseAuthInstance.currentUser;
+
+      final storageRef = firebaseStorageInstance
+          .ref()
+          .child("images")
+          .child("${loggedInUser!.uid}.jpg");
 
       await storageRef.putFile(_selectedImage!);
 
       final url = await storageRef.getDownloadURL();
-      print(url);
+
+      await firebaseFireStore
+          .collection("users")
+          .doc(loggedInUser.uid)
+          .update({'imageUrl': url});
     }
   }
 
