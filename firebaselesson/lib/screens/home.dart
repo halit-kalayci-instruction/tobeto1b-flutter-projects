@@ -96,11 +96,12 @@ class _HomeState extends State<Home> {
                 _pickImage();
               },
               child: const Text("Resim Seç")),
-          ElevatedButton(
-              onPressed: () {
-                _uploadImage();
-              },
-              child: const Text("Yükle"))
+          if (_selectedImage != null)
+            ElevatedButton(
+                onPressed: () {
+                  _uploadImage();
+                },
+                child: const Text("Yükle"))
         ]),
       ),
     );
