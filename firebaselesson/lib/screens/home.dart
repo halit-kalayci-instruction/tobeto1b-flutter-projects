@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 final firebaseAuthInstance = FirebaseAuth.instance;
 final firebaseStorageInstance = FirebaseStorage.instance;
 final firebaseFireStore = FirebaseFirestore.instance;
+final fcm = FirebaseMessaging.instance;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,6 +21,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   File? _selectedImage;
+
+  @override
+  void initState() {
+    _requestNotificationPermission();
+    super.initState();
+  }
+
+  void _requestNotificationPermission() async {
+    NotificationSettings settings = await fcm.requestPermission();
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      String? token = await fcm.getToken();
+      print(token);
+    }
+  }
 
   void _pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
